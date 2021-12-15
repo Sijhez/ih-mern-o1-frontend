@@ -6,6 +6,7 @@
 import { useReducer } from "react";
 import GuitarContext from "./GuitarContext";
 import GuitarReduce from "./GuitarReduce"
+import axiosClient from "../../config/axios";
 const GuitarState =(props)=>{
    //1. INITIAL STATE (estado inicial)
    const initialState = {
@@ -24,6 +25,18 @@ const GuitarState =(props)=>{
            payload:"Estoy aprendiendo context sin morir."
        })
    }
+
+   const getGuitars = async () =>{
+       const res = await axiosClient.get("guitars/readall")
+       console.log(res)
+       console.log("Obteniendo guitarras...")
+       
+       const list = res.data.data
+       dispatch({
+           type:"GET_GUITARRAS",
+           payload:list
+       })
+   }
          
    //4. RETORNO
    return (
@@ -32,7 +45,8 @@ const GuitarState =(props)=>{
          value={{
             guitars: globalState.guitars,
             hola: globalState.hola, 
-            changeText
+            changeText,
+            getGuitars
          }}
        >
            {props.children}

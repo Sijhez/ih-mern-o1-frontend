@@ -4,7 +4,10 @@ import GuitarContext from '../../context/Guitar/GuitarContext'
 export default function Guitars() {
     //ESTADO GLOBAL
     const ctx = useContext(GuitarContext)
-    const {guitars, hola, changeText} = ctx
+    const {guitars,
+         hola, 
+         changeText,
+          getGuitars} = ctx
     //console.log(ctx)
 
 
@@ -14,10 +17,30 @@ export default function Guitars() {
     return (
         <>
            <p> Listado de guitarras</p>
-           <p>{hola}</p>
+           {/* <p>{hola}</p>
            <button onClick={()=>{changeText()}}>
                Cambiar Texto
+           </button> */}
+           <button onClick={()=>{getGuitars()}}>
+               Obtener Guitarras
            </button>
+           <div>
+               <h2>Listado de guitarras</h2>
+               <ul>
+                   {
+                       guitars.map((element)=>{
+                           return(
+                            <li key={element._id}>
+                            <p>{element.nombre}</p>
+                            <p>{element.precio}</p>
+                        </li>
+                           )
+                                                  })
+                   }
+               </ul>
+
+           </div>
+           <h2>{guitars.nombre}</h2>
         </>
     )
 }
